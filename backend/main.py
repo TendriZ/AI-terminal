@@ -10,7 +10,14 @@ print("API_KEY:", API_KEY)
 URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}"
 
 app = Flask(__name__)
-CORS(app)
+
+# Konfigurasi CORS yang lebih spesifik untuk GitHub Pages
+CORS(app, origins=[
+    "https://tendriz.github.io",  # Ganti dengan domain GitHub Pages Anda
+    "https://*.github.io",        # Semua subdomain github.io
+    "http://localhost:*",         # Untuk testing lokal
+    "https://localhost:*"         # Untuk testing lokal HTTPS
+], supports_credentials=True)
 
 # Store conversation history per session
 conversation_sessions = {}
@@ -37,8 +44,16 @@ def script():
     parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     return send_from_directory(parent_dir, 'script.js')
 
-@app.route("/chat", methods=["POST"])
+@app.route("/chat", methods=["POST", "OPTIONS"])
 def chat():
+    # Handle preflight request
+    if request.method == "OPTIONS":
+        response = jsonify({"status": "ok"})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+        response.headers.add("Access-Control-Allow-Methods", "POST")
+        return response
+    
     data = request.get_json()
     message = data.get("message", "")
     session_id = data.get("session_id", "default")
@@ -70,10 +85,14 @@ def chat():
             "parts": [{"text": reply}]
         })
         
-        return jsonify({"response": reply})
+        response = jsonify({"response": reply})
+        # Tambahkan header CORS manual
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     else:
-        return jsonify({"response": "Maaf, terjadi kesalahan. Coba lagi nanti."}, 
-        res.status_code)
+        response = jsonify({"response": "Maaf, terjadi kesalahan. Coba lagi nanti."})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, res.status_code
 
 @app.route("/clear", methods=["POST"])
 def clear_conversation():
@@ -83,8 +102,9 @@ def clear_conversation():
     if session_id in conversation_sessions:
         conversation_sessions[session_id] = []
     
-    return jsonify({"response": "Conversation cleared"})
+    response = jsonify({"response": "Conversation cleared"})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
-
