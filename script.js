@@ -3,7 +3,7 @@ const chat = document.getElementById("chat");
 
 function sendPrompt() {
   const prompt = input.value;
-  fetch("https://your-backend-url/chat", {
+  fetch("https://chatbot-gemini.rakadev.repl.co", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt })

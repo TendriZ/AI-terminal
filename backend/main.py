@@ -1,8 +1,9 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
 import os
 import requests
+
 from dotenv import load_dotenv
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
@@ -23,12 +24,14 @@ def chat():
         }]
     }
 
-    res = requests.post(URL, headers={"Content-Type": "application/json"}, json=obj_data)
+    res = requests.post(URL, headers={"Content-Type": "application/json"}, 
+        json=obj_data)
     if res.status_code == 200:
         reply = res.json()["candidates"][0]["content"]["parts"][0]["text"]
         return jsonify({"reply": reply})
     else:
-        return jsonify({"reply": "Maaf, terjadi kesalahan. Coba lagi nanti."}), res.status_code
+        return jsonify({"reply": "Maaf, terjadi kesalahan. Coba lagi nanti."}, 
+        res.status_code)
 
 if __name__ == "__main__":
     app.run(debug=True)
