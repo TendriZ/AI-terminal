@@ -1,10 +1,11 @@
 import requests
 import os
+from dotenv import load_dotenv
 
-API_KEY = os.getenv("API_KEY", "AIzaSyA_xhSv7t8GbIoZMMzPpqJU6aS7wgph-YU")
-URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}"
+load_dotenv()
 
-# Prompt pembuka untuk hasil lebih detail
+API_KEY = os.getenv("API_KEY") 
+URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}" 
 INSTRUCTION = (
     "Berikan jawaban yang lengkap dan mendalam. Jelaskan langkah-langkahnya dengan jelas, "
     "gunakan contoh jika memungkinkan. Jangan terlalu singkat. Jelaskan seolah-olah kepada pemula.\n\n"
