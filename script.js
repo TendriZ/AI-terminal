@@ -55,7 +55,7 @@ function loadChatHistory() {
 function clearChatHistory() {
     localStorage.removeItem(CHAT_HISTORY_KEY);
     chatArea.innerHTML = '';
-    appendMessage('bot', 'Hello! I am your Gemini chatbot. How can I help you today?');
+    appendMessage('bot', 'Hello! I am your TendriZ AI. How can I help you today?');
 }
 
 form.addEventListener('submit', async (e) => {
