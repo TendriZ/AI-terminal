@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 # Konfigurasi CORS yang lebih spesifik untuk GitHub Pages
 CORS(app, origins=[
-    "https://tendriz.github.io",  # Ganti dengan domain GitHub Pages Anda
+    "https://tendriz.github.io/Project-AI/",  # Ganti dengan domain GitHub Pages Anda
     "https://*.github.io",        # Semua subdomain github.io
     "http://localhost:*",         # Untuk testing lokal
     "https://localhost:*"         # Untuk testing lokal HTTPS
