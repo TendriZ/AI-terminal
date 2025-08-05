@@ -27,7 +27,7 @@ body {
 }
 
 header {
-  background: #4a5568;
+  background: linear-gradient(black 30%,blue 100%);
   color: white;
   padding: 20px;
   text-align: center;
@@ -35,7 +35,7 @@ header {
 
 header h1 {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 600;  
 }
 
 .chat-area {
@@ -54,15 +54,15 @@ header h1 {
 }
 
 .message.user {
-  background: #4299e1;
+  background: black;
   color: white;
   margin-left: auto;
   text-align: right;
 }
 
 .message.bot {
-  background: #e2e8f0;
-  color: #2d3748;
+  background: white;
+  color: black;
 }
 
 .chat-form {
