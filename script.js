@@ -144,7 +144,7 @@ window.addEventListener('load', () => {
     
     // Jika tidak ada history, tampilkan welcome message
     if (chatArea.children.length === 0) {
-        appendMessage('bot', 'Hello! I am your Gemini chatbot. How can I help you today?');
+        appendMessage('bot', 'Hello! I am your TendriZ AI. How can I help you today?');
     }
 });
 
