@@ -12,6 +12,9 @@ URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash
 app = Flask(__name__)
 CORS(app)
 
+# Store conversation history per session
+conversation_sessions = {}
+
 @app.route("/")
 def home():
     # Serve the HTML file from parent directory
@@ -38,21 +41,49 @@ def script():
 def chat():
     data = request.get_json()
     message = data.get("message", "")
+    session_id = data.get("session_id", "default")
 
+    # Initialize session if not exists
+    if session_id not in conversation_sessions:
+        conversation_sessions[session_id] = []
+
+    # Add user message to conversation history
+    conversation_sessions[session_id].append({
+        "role": "user",
+        "parts": [{"text": message}]
+    })
+
+    # Prepare conversation data with full history
     obj_data = {
-        "contents": [{
-            "parts": [{"text": message}]
-        }]
+        "contents": conversation_sessions[session_id]
     }
 
     res = requests.post(URL, headers={"Content-Type": "application/json"}, 
         json=obj_data)
+    
     if res.status_code == 200:
         reply = res.json()["candidates"][0]["content"]["parts"][0]["text"]
+        
+        # Add bot response to conversation history
+        conversation_sessions[session_id].append({
+            "role": "model",
+            "parts": [{"text": reply}]
+        })
+        
         return jsonify({"response": reply})
     else:
         return jsonify({"response": "Maaf, terjadi kesalahan. Coba lagi nanti."}, 
         res.status_code)
+
+@app.route("/clear", methods=["POST"])
+def clear_conversation():
+    data = request.get_json()
+    session_id = data.get("session_id", "default")
+    
+    if session_id in conversation_sessions:
+        conversation_sessions[session_id] = []
+    
+    return jsonify({"response": "Conversation cleared"})
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
