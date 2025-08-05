@@ -27,10 +27,10 @@ body {
 }
 
 header {
-  background: linear-gradient(black 30%,blue 100%);
-  color: white;
+  background:rgb(75, 219, 216);
+  color: rgb(0, 0, 0);
   padding: 20px;
-  text-align: center;
+  text-align: center;;
 }
 
 header h1 {
@@ -42,7 +42,7 @@ header h1 {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background: #f7fafc;
+  background: #b1d4ec;
 }
 
 .message {
@@ -139,7 +139,7 @@ button:hover {
 /* Responsive design untuk mobile */
 @media (max-width: 768px) {
   .header-content {
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
   }
   
@@ -149,7 +149,7 @@ button:hover {
   }
   
   .clear-btn {
-    font-size: 12px;
+    font-size: 16px;
     padding: 6px 12px;
   }
 }
