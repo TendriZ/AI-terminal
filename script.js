@@ -17,7 +17,7 @@ form.addEventListener('submit', async (e) => {
     try {
         console.log('Sending request to backend...'); // Debug log
         
-        const response = await fetch('https://39ce7961-2181-494f-95cd-cca1e2dd7af1-00-k7zwjwdwq87j.pike.replit.dev/chat', {
+        const response = await fetch('https://39ce7961-2181-494f-95cd-cca1e2dd7af1-00-k7zwjwdwq87j.pike.replit.dev:5000/chat', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ window.addEventListener('load', () => {
 // Test backend connection on page load
 window.addEventListener('load', async () => {
     try {
-        const response = await fetch('https://39ce7961-2181-494f-95cd-cca1e2dd7af1-00-k7zwjwdwq87j.pike.replit.dev/', {
+        const response = await fetch('https://39ce7961-2181-494f-95cd-cca1e2dd7af1-00-k7zwjwdwq87j.pike.replit.dev:5000/', {
             method: 'GET'
         });
         console.log('Backend connection test:', response.ok ? 'Success' : 'Failed');
