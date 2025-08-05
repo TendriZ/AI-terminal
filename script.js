@@ -13,7 +13,7 @@ form.addEventListener('submit', async (e) => {
 
     try {
         // Use relative URL to work with current domain
-        const response = await fetch('/chat', {
+        const response = await fetch('https://39ce7961-2181-494f-95cd-cca1e2dd7af1-00-k7zwjwdwq87j.pike.replit.dev/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message })
