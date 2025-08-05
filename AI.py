@@ -4,32 +4,41 @@ import os
 API_KEY = os.getenv("API_KEY", "AIzaSyCjqm13TNHjAEiTnitaPORXXjzohUKDcbU")
 URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}"
 
+# Prompt pembuka untuk hasil lebih detail
+INSTRUCTION = (
+    "Berikan jawaban yang lengkap dan mendalam. Jelaskan langkah-langkahnya dengan jelas, "
+    "gunakan contoh jika memungkinkan. Jangan terlalu singkat. Jelaskan seolah-olah kepada pemula.\n\n"
+)
+
 def chatbotGemini(prompt):
-    user_prompt = prompt
+    full_prompt = INSTRUCTION + prompt
     obj_data = {
-        "contents":[{
-            "parts":[{
-                "text": user_prompt
+        "contents": [{
+            "parts": [{
+                "text": full_prompt
             }]
         }]
     }
     res = requests.post(
         URL,
-        headers = {"Content-Type":"application/json"},
-        json = obj_data
+        headers={"Content-Type": "application/json"},
+        json=obj_data
     )
     if res.status_code == 200:
-        print(res.json()["candidates"][0]["content"]["parts"][0]["text"])
+        try:
+            reply = res.json()["candidates"][0]["content"]["parts"][0]["text"]
+            print(f"[AI] > {reply}\n")
+        except KeyError:
+            print("[AI] > [⚠️] Tidak ada respons dari API.")
     else:
-        print(f"Error: {res.status_code}")
+        print(f"[⚠️] Error {res.status_code}: {res.text}")
 
-print("[AI] > Halo ada yang bisa saya bantu? (Ketik 'keluar' untuk berhenti)")
+print("[AI] > Halo! Aku siap membantu. (Ketik 'keluar' untuk berhenti)\n")
 
 while True:
-    user = input("[kamu] >")
-    if user == "keluar":
-        print("[AI] > Sayonara")
-        exit()
+    user = input("[kamu] > ")
+    if user.lower() == "keluar":
+        print("[AI] > Sampai jumpa ya!")
+        break
     else:
         chatbotGemini(user)
-
