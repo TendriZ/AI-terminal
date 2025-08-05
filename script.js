@@ -76,7 +76,7 @@ function appendMessage(sender, text) {
 
 // Add welcome message
 window.addEventListener('load', () => {
-    appendMessage('bot', 'Hello! I am your Gemini chatbot. How can I help you today?');
+    appendMessage('bot', 'Hello! I am your TendriZ AI. How can I help you today?');
 });
 
 // Test backend connection on page load
