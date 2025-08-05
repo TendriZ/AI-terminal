@@ -1,34 +1,33 @@
-const form = document.getElementById("chat-form");
-const input = document.getElementById("prompt-input");
-const result = document.getElementById("chat-result");
+const form = document.getElementById('chat-form');
+const chatArea = document.getElementById('chat-area');
+const input = document.getElementById('user-input');
 
-// Ganti ini dengan URL Replit kamu (tanpa slash di akhir)
-const BACKEND_URL = "https://39ce7961-2181-494f-95cd-cca1e2dd7af1-00-k7zwjwdwq87j.pike.replit.dev";
-
-form.addEventListener("submit", async (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  const message = input.value.trim();
+  if (!message) return;
 
-  const prompt = input.value.trim();
-  if (!prompt) return;
-
-  result.textContent = "⏳ Loading...";
+  appendMessage('user', message);
+  input.value = '';
 
   try {
-    const response = await fetch(`${BACKEND_URL}/chat`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ prompt }),
+    const response = await fetch('https://39ce7961-2181-494f-95cd-cca1e2dd7af1-00-k7zwjwdwq87j.pike.replit.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message })
     });
 
-    if (!response.ok) {
-      throw new Error(`Server error: ${response.status}`);
-    }
-
     const data = await response.json();
-    result.textContent = data.reply;
+    appendMessage('bot', data.response);
   } catch (err) {
-    result.textContent = "❌ Error: " + err.message;
+    appendMessage('bot', '⚠️ Error connecting to server.');
   }
 });
+
+function appendMessage(sender, text) {
+  const msg = document.createElement('div');
+  msg.classList.add('message', sender);
+  msg.textContent = text;
+  chatArea.appendChild(msg);
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
