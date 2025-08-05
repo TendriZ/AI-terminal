@@ -102,3 +102,54 @@ button {
 button:hover {
   background: #3182ce;
 }
+
+/* Tambahkan CSS ini ke file style.css yang sudah ada */
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.clear-btn {
+  background: linear-gradient(135deg, #ff4757, #ff3742);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(255, 71, 87, 0.3);
+}
+
+.clear-btn:hover {
+  background: linear-gradient(135deg, #ff3742, #ff2f3a);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+}
+
+.clear-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(255, 71, 87, 0.3);
+}
+
+/* Responsive design untuk mobile */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .header-content h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .clear-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
