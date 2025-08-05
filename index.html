@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AI Chatbot</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Gemini Chat</title>
 </head>
 <body>
-  <div class="chatbox">
-    <div id="chat-log"></div>
-    <input type="text" id="user-input" placeholder="Tulis pesan..." />
-    <button onclick="sendMessage()">Kirim</button>
-  </div>
+  <h1>Gemini Chatbot</h1>
+  <form id="chat-form">
+    <input type="text" id="prompt-input" placeholder="Tulis pesan..." required />
+    <button type="submit">Kirim</button>
+  </form>
+  <div id="chat-result"></div>
+
   <script src="script.js"></script>
 </body>
 </html>
