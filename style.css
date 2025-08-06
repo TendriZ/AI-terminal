@@ -265,4 +265,19 @@ button:hover {
   .chat-form {
     padding: 10px 15px;
   }
+  /* TAMBAHAN PENTING UNTUK MOBILE */
+@media (max-width: 768px) {
+  body {
+    align-items: stretch; /* Dari center ke stretch */
+  }
+  
+  .container {
+    height: 100vh; /* Dari 80vh ke 100vh */
+  }
+  
+  #user-input {
+    font-size: 16px; /* Mencegah zoom iOS */
+    min-height: 44px; /* Touch target */
+  }
+}
 }
