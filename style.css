@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -12,6 +11,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px; /* Tambahkan padding untuk mobile */
 }
 
 .container {
@@ -27,15 +27,15 @@ body {
 }
 
 header {
-  background:rgb(75, 219, 216);
+  background: rgb(75, 219, 216);
   color: rgb(0, 0, 0);
   padding: 20px;
-  text-align: center;;
+  text-align: center;
 }
 
 header h1 {
   font-size: 24px;
-  font-weight: 600;  
+  font-weight: 600;
 }
 
 .chat-area {
@@ -71,6 +71,7 @@ header h1 {
   border-top: 1px solid #e2e8f0;
   display: flex;
   gap: 10px;
+  flex-shrink: 0; /* Penting: mencegah form mengecil */
 }
 
 #user-input {
@@ -79,8 +80,9 @@ header h1 {
   border: 2px solid #e2e8f0;
   border-radius: 25px;
   outline: none;
-  font-size: 16px;
+  font-size: 16px; /* Penting untuk iOS - mencegah auto-zoom */
   font-family: 'Poppins', sans-serif;
+  min-height: 44px; /* Touch target minimum */
 }
 
 #user-input:focus {
@@ -97,14 +99,15 @@ button {
   font-size: 16px;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
+  min-height: 44px; /* Touch target minimum */
+  white-space: nowrap; /* Mencegah text wrapping */
 }
 
 button:hover {
   background: #3182ce;
 }
 
-/* Tambahkan CSS ini ke file style.css yang sudah ada */
-
+/* Header dengan tombol clear */
 .header-content {
   display: flex;
   justify-content: space-between;
@@ -123,6 +126,7 @@ button:hover {
   font-weight: 600;
   transition: all 0.3s ease;
   box-shadow: 0 2px 10px rgba(255, 71, 87, 0.3);
+  min-height: 36px; /* Touch target untuk tombol kecil */
 }
 
 .clear-btn:hover {
@@ -136,20 +140,129 @@ button:hover {
   box-shadow: 0 2px 5px rgba(255, 71, 87, 0.3);
 }
 
-/* Responsive design untuk mobile */
+/* MOBILE RESPONSIVE - Perbaikan Utama */
 @media (max-width: 768px) {
+  body {
+    padding: 5px;
+    align-items: stretch; /* Ubah dari center ke stretch */
+  }
+  
+  .container {
+    width: 100%;
+    height: 100vh; /* Full height di mobile */
+    margin: 0;
+    border-radius: 10px;
+  }
+  
+  header {
+    padding: 15px;
+  }
+  
   .header-content {
-    flex-direction: row;
+    flex-direction: row; /* Tetap horizontal */
     gap: 10px;
   }
   
   .header-content h1 {
-    font-size: 1.5rem;
-    text-align: center;
+    font-size: 1.3rem;
+    text-align: left;
+    flex: 1;
   }
   
   .clear-btn {
-    font-size: 16px;
+    font-size: 12px;
     padding: 6px 12px;
+    flex-shrink: 0;
+  }
+  
+  .chat-area {
+    padding: 15px;
+  }
+  
+  .message {
+    font-size: 15px;
+    max-width: 85%;
+  }
+  
+  /* FORM MOBILE - KUNCI PERBAIKAN */
+  .chat-form {
+    padding: 15px;
+    gap: 8px;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  #user-input {
+    font-size: 16px; /* PENTING: mencegah zoom di iOS */
+    padding: 10px 15px;
+    min-height: 44px;
+  }
+  
+  button {
+    padding: 10px 18px;
+    font-size: 14px;
+    min-height: 44px;
+    min-width: 70px;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+  .container {
+    border-radius: 5px;
+  }
+  
+  header {
+    padding: 12px;
+  }
+  
+  .header-content h1 {
+    font-size: 1.1rem;
+  }
+  
+  .clear-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+  
+  .chat-area {
+    padding: 12px;
+  }
+  
+  .chat-form {
+    padding: 12px;
+  }
+  
+  .message {
+    max-width: 90%;
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+}
+
+/* Landscape Mobile - Optimasi khusus */
+@media (max-height: 600px) and (orientation: landscape) {
+  body {
+    align-items: center; /* Kembali ke center untuk landscape */
+  }
+  
+  .container {
+    height: 90vh; /* Tidak full height di landscape */
+  }
+  
+  header {
+    padding: 10px 15px;
+  }
+  
+  .header-content h1 {
+    font-size: 1.2rem;
+  }
+  
+  .chat-area {
+    padding: 10px 15px;
+  }
+  
+  .chat-form {
+    padding: 10px 15px;
   }
 }
